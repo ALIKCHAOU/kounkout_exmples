@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>SPA</title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+
+   <h1 data-bind="text :title">this is the title </h1>
+    <input type="text"  data-bind="value :title ,valueUpdate:'afterkeydown'" />
+    <input type="submit" data-bind="click :addanimal" />
+    <ul  data-bind="foreach: array">
+        <li  data-bind="text: $data"></li>
+    </ul>
+    <hr />
+    <p> FirstName:<span data-bind="text:firstname"></span></p>
+    <p>lasteName:<span data-bind="text:lastename"></span></p>
+    <span data-bind="text:job"></span>
+
+    <input type="text" data-bind="value :firstname" />
+    <input type="text" data-bind="value :lastename"  />
+    <input type="text" data-bind="value :job" />
+
+    <hr />
+    <p>FullName: <span data-bind="text:FullName"></span></p>
+
+    <script src="Scripts/jquery-3.3.1.js"></script>
+    <script src="Scripts/knockout-3.4.2.js"></script>
+    <script src="Scripts/app.service.js"></script>
+    <script src="Scripts/app.js"></script>
+    <script>
+        var mv = {
+            firstname: "ali",
+            lastename: "kchaou",
+            job:ko.observable("Junior_Developper"),
+            todo:ko.observable("java"),
+            title: ko.observable(),
+            array: ko.observableArray(),
+            addanimal: function ()
+            { this.array.push(this.title()); }
+        };
+        mv.title("knokout");
+        mv.array.push('MVVM');
+        mv.array.push('entityFramework');
+        mv.array.push('MVC');
+       
+        mv.FullName = ko.dependentObservable(function () {
+            return mv.job() + " " + mv.todo();
+        });
+        ko.applyBindings(mv);
+        
+        
+    </script>
+</body>
+</html>
